@@ -5,9 +5,9 @@
 Die Grundinstallation der VM wird anhand der [Dokumentation](http://webdevops-documentation.readthedocs.io/projects/vagrant-docker-vm/en/ubuntu-16.04/content/gettingStarted/index.html#installation "Zur Dokumentation") von WebDevOps durchgeführt.
 
 Diese Anleitung bezieht sich auf das Projekt "***PhotoFancy***".
-Die Vagrant Box wird hier in den Ordner ***vagrant-docker*** installiert.
+Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert.
 
-	git clone --recursive --config core.autocrlf=false https://github.com/webdevops/vagrant-development.git vagrant-docker
+	git clone --recursive --config core.autocrlf=false https://github.com/webdevops/vagrant-development.git photofancy-environment
 	
 	cd vagrant-docker
 
