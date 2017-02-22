@@ -9,7 +9,7 @@ Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert
 
 	git clone --recursive --config core.autocrlf=false https://github.com/webdevops/vagrant-development.git photofancy-environment
 	
-	cd vagrant-docker
+	cd photofancy-environment
 
 ###spezielle Anpassungen der VM
 
