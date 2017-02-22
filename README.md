@@ -28,7 +28,7 @@ Die SharedFolder müssen je nach Betriebssystem angepasst werden.
 
 	# Windows
 	sharedFolder:
-		- { type: 'nfs', src: 'C:\www', target: '/var/www' }
+		- { type: 'home' }
 
 Die Port-Weiterleitungen auf Port 80 sollte angepasst werden.
 
@@ -55,7 +55,11 @@ Vagrant Box starten
 
 Nach dem Starten der VM-Box per ***vagrant ssh*** einwählen, dann in den entprechenden Order navigieren.
 
-	cd /var/www/vagrant-docker
+    # OSX #
+	cd /var/www/photofancy-environment
+	
+	# Windows #
+	cd /vagrant
 
 
 ###Grundinstallation
