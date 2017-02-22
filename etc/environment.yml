@@ -10,8 +10,11 @@
 # Webserver
 
 # General
-WEB_DOCUMENT_ROOT=/app/
-WEB_DOCUMENT_INDEX=index.php
+WEB_DOCUMENT_ROOT=/app/web/
+WEB_DOCUMENT_INDEX=app_dev.php
+
+DOCUMENT_ROOT=/app/web/
+DOCUMENT_INDEX=app_dev.php
 CLI_SCRIPT="php /app/index.php"
 
 #######################################
@@ -30,10 +33,10 @@ SSH_AUTH_KEY=""
 #    because it's stored database in
 #    volume and provisioning is only
 #    done once.
-MYSQL_ROOT_PASSWORD=dev
+MYSQL_ROOT_PASSWORD=linuxx
 MYSQL_USER=dev
 MYSQL_PASSWORD=dev
-MYSQL_DATABASE=database
+MYSQL_DATABASE=photofancy
 
 #######################################
 # PostgreSQL settings

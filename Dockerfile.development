@@ -43,7 +43,7 @@
 #
 #++++++++++++++++++++++++++++++++++++++
 
-FROM webdevops/php-apache-dev:ubuntu-16.04
+FROM webdevops/php-apache-dev:ubuntu-14.04
 
 ENV PROVISION_CONTEXT "development"
 
@@ -53,6 +53,24 @@ COPY provision/       /opt/docker/provision/
 
 RUN /opt/docker/bin/provision run --tag bootstrap --role boilerplate-main --role boilerplate-main-development --role boilerplate-deployment \
     && /opt/docker/bin/bootstrap.sh
+
+# Install tools
+RUN add-apt-repository ppa:otto-kesselgulasch/gimp
+RUN apt-get update
+RUN apt-get install -y ruby-sass
+RUN apt-get install -y mc
+RUN apt-get install -y vim
+RUN apt-get install -y jhead
+RUN apt-get install -y mysql-client unixodbc libpq5
+
+# Install Gmic
+RUN apt-get install -y gmic gimp-gmic
+
+# Install SphinxSearch
+RUN apt-get install -y sphinxsearch
+
+RUN rm -rf /var/lib/apt/lists/*
+RUN apt-get clean -y
 
 # Configure volume/workdir
 RUN mkdir -p /app/
