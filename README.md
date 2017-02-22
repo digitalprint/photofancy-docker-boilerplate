@@ -10,6 +10,12 @@ Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert
 	git clone --recursive --config core.autocrlf=false https://github.com/webdevops/vagrant-development.git photofancy-environment
 	
 	cd photofancy-environment
+	
+	# bindfs Plugin installieren
+	vagrant plugin install vagrant-bindfs
+	
+	# Wenn unter OSX der Parallels Provider benutzt wird, muss das Plugin installiert werden
+	vagrant plugin install vagrant-parallels
 
 ###spezielle Anpassungen der VM
 
@@ -22,27 +28,20 @@ Die SharedFolder müssen je nach Betriebssystem angepasst werden.
 
 	# Windows
 	sharedFolder:
-		- { type: 'home' }
+		- { type: 'nfs', src: 'C:\www', target: '/var/www' }
 
 Die Port-Weiterleitungen auf Port 80 sollte angepasst werden.
 
 	portForwarding:
 		- { guest: 80, host: 80, hostIp: '192.168.56.2', protocol: 'tcp' }
 
-####Für OSX mit Parallels-Provider
-
-Bevor die Vagrant Box gestartet wird, müssen die ***Parallels*** und 
-***bindfs*** Plugins installiert werden.
-
-	vagrant plugin install vagrant-parallels
-	vagrant plugin install vagrant-bindfs
 
 #####Anpassungen im Vagrantfile
 Das automatische Update der Parallels-Tools muss deaktiviert werden, da sonst die Box nicht startet (Tools können nicht installiert werden) - auf **false** setzen
 
 	v.update_guest_tools = false
 	
-Die NFS Rechte müssen auch angepasst werden.
+Die NFS Rechte müssen auch angepasst werden (Nur für OSX).
 
 	:nfs => { :mount_options => [ "dmode=777", "fmode=777" ] }
 	
