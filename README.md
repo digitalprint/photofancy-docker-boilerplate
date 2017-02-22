@@ -62,71 +62,25 @@ Nach dem Starten der VM-Box per ***vagrant ssh*** einwählen, dann in den entpre
 ###Grundinstallation
 
 	git clone --recursive https://github.com/digitalprint/photofancy-docker-boilerplate.git photofancy
-	
-	cd photofancy
-	
-	# copy favorite docker-compose.*.yml to docker-compose.yml
-	cp docker-compose.development.yml docker-compose.yml
-
-#####Anpassungen im Dockerfile.development
-
-Ubuntu 14.04 mit PHP 5.6 eintragen
-
-	FROM webdevops/php-apache-dev:ubuntu-14.04
-
-Für ***PhotoFancy*** fehlen noch einige Module. Die unter dem ***RUN bootstrap.sh*** Befehl einfügen.
-
-	# Install tools
-	RUN add-apt-repository ppa:otto-kesselgulasch/gimp
-	RUN apt-get update
-	RUN apt-get install -y ruby-sass
-	RUN apt-get install -y mc
-	RUN apt-get install -y vim
-	RUN apt-get install -y jhead
-	RUN apt-get install -y mysql-client unixodbc libpq5
-	
-	# Install Gmic
-	RUN apt-get install -y gmic gimp-gmic
-	
-	# Install SphinxSearch
-	RUN apt-get install -y sphinxsearch
-	
-	RUN rm -rf /var/lib/apt/lists/*
-	RUN apt-get clean -y
-
-#####Anpassungen etc/environment.yml
-Document Root für ***PhotoFancy***'s Symfony Applikation anpassen
-
-	WEB_DOCUMENT_ROOT=/app/web/
-	WEB_DOCUMENT_INDEX=app_dev.php
-
-	DOCUMENT_ROOT=/app/web/
-	DOCUMENT_INDEX=app_dev.php
-
-***PhotoFancy*** Standard Werte für MySQL eintragen
-
-	MYSQL_ROOT_PASSWORD=photofancy_standard_password
-	MYSQL_DATABASE=photofancy
 
 #####Anpassungen docker-compose.yml
 Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Je nach System den entsprechenden Ordner verknüpfen. Als Docker-Storage Name verwenden wir ***pfshared***
 
 	Für OSX:
 	
-	storage:
-		build:
-		context: docker/storage/
 	volumes:
 		- /storage
 		- /var/www/_nfs_:/pfshared
+		
+	Für Windows:
 
-#####Anpassungen etc/php/development.ini
-Die Datei ***ect/php/development.ini*** überschreibt gewisse Parameter der ***php.ini***. Hier muss nur der IDE-Key angepasst werden.
-
-	xdebug.idekey = "PHPSTORM"
+    volumes:
+        - /storage
+        - C:/www/_nfs_:/pfshared (Benutzerdefinierten Pfad einsetzen)
 	
 Anschließend die Container bilden und hochfahren.
 
+    cd photofancy
 	docker-compose up -d
 	
 Wenn man an der Konfiguration etwas ändert, reicht es in den meisten Fällen, die Container neu zu starten.
