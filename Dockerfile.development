@@ -43,7 +43,7 @@
 #
 #++++++++++++++++++++++++++++++++++++++
 
-FROM webdevops/php-apache-dev:ubuntu-14.04
+FROM webdevops/php-apache-dev:ubuntu-15.10
 
 ENV PROVISION_CONTEXT "development"
 

@@ -68,15 +68,11 @@ Auf dem Ubuntu-System dann in den entprechenden Order navigieren.
 
 ###Grundinstallation
 
-	git clone --recursive https://github.com/digitalprint/photofancy-docker-boilerplate.git photofancy
+	git clone https://github.com/digitalprint/photofancy-docker-boilerplate.git photofancy
 
 #####in den photofancy Ordner wechseln
 
 	cd photofancy
-
-#####docker-compose.yml erstellen
-
-	cp docker-compose.development.yml docker-compose.yml
 
 ###Anpassungen docker-compose.yml
 Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Je nach System den entsprechenden Ordner verknüpfen. Als Docker-Storage Name verwenden wir ***pfshared***
@@ -92,10 +88,6 @@ Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Je nach System 
     volumes:
         - /storage
         - C:/www/_nfs_:/pfshared (Benutzerdefinierten Pfad einsetzen)
-	
-###PHP Version im Dockerfile.development einstellen (PHP 5.6)
-
-	FROM webdevops/php-apache-dev:ubuntu-15.10
 
 Anschließend die Container hochfahren.
 
@@ -110,9 +102,9 @@ Wenn man an der Konfiguration etwas ändert, reicht es in den meisten Fällen, d
 
 	docker-compose rm mysql
 	
-Zum Schluss die IP in der ***hosts*** Datei auf local.photofancy.de mappen.
+Zum Schluss die IP in der ***hosts*** Datei auf photofancy mappen.
 
-	192.168.56.2 local.photofancy.de
+	192.168.56.2 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
 	
 
 ##PhotoFancy Projekt Setup
