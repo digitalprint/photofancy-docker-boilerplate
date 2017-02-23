@@ -30,7 +30,7 @@ Die SharedFolder müssen je nach Betriebssystem angepasst werden.
 	sharedFolder:
 		- { type: 'home' }
 
-Die Port-Weiterleitungen auf Port 80 sollte angepasst werden.
+Die Port-Weiterleitungen auf Port 80 sollte angepasst werden (unter Windows wird Standardmäßig Port 80 gesetzt, keine Weiterleitung nötig).
 
 	portForwarding:
 		- { guest: 80, host: 80, hostIp: '192.168.56.2', protocol: 'tcp' }
@@ -168,9 +168,6 @@ Datenbank Create & Sync
 	# Lokale DB -> Online DB Sync
 	php app/console pf:database:sync
 	
-###Die Session Tabelle wird nicht automatisch über die Doctrine Entities angelegt. Folgende Tabelle in die DB einfügen:
-
-	CREATE TABLE sessions ( sess_id VARBINARY(128) NOT NULL PRIMARY KEY, sess_data BLOB NOT NULL, sess_time INTEGER UNSIGNED NOT NULL, sess_lifetime MEDIUMINT NOT NULL ) COLLATE utf8_bin, ENGINE = InnoDB;
 	
 <br>
 ---
