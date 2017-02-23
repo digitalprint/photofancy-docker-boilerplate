@@ -74,6 +74,10 @@ Auf dem Ubuntu-System dann in den entprechenden Order navigieren.
 
 	cd photofancy
 
+#####docker-compose.yml erstellen
+
+	cp docker-compose.development.yml docker-compose.yml
+	
 ###Anpassungen docker-compose.yml
 Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Je nach System den entsprechenden Ordner verknüpfen. Als Docker-Storage Name verwenden wir ***pfshared***
 
