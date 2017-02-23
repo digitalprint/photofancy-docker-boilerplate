@@ -113,6 +113,14 @@ Zum Schluss die IP in der ***hosts*** Datei auf photofancy mappen.
 
 ##PhotoFancy Projekt Setup
 
+###PhotoFancy Projekt in den ***app*** Ordner klonen
+
+    # Zuerst den jetzigen app Ordner löschen
+    rm -R app
+    
+    # Dann den Inhalt des PhotoFancy Repositories in einen neuen app Ordner laden
+    git clone https://github.com/digitalprint/photofancy2.git app
+
 ###Anpassungen parameters.yml
 Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und dann den MySQL- Host und Port anpassen...
 
