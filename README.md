@@ -17,9 +17,9 @@ Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert
 	# Wenn unter OSX der Parallels Provider benutzt wird, muss das Plugin installiert werden
 	vagrant plugin install vagrant-parallels
 
-###spezielle Anpassungen der VM
+##spezielle Anpassungen der VM
 
-#####Anpassungen in der vm.yml
+###Anpassungen in der vm.yml
 Die SharedFolder müssen je nach Betriebssystem angepasst werden.
 
 	# OSX
@@ -36,7 +36,7 @@ Die Port-Weiterleitungen auf Port 80 sollte angepasst werden.
 		- { guest: 80, host: 80, hostIp: '192.168.56.2', protocol: 'tcp' }
 
 
-#####Anpassungen im Vagrantfile
+###Anpassungen im Vagrantfile
 Das automatische Update der Parallels-Tools muss deaktiviert werden, da sonst die Box nicht startet (Tools können nicht installiert werden) - auf **false** setzen
 
 	v.update_guest_tools = false
@@ -52,8 +52,12 @@ Offizielle [PHP Docker Boilerplate Dokumentation](https://github.com/webdevops/p
 Vagrant Box starten
 
 	vagrant up
+	
+Per SSH in die Box einloggen
 
-Nach dem Starten der VM-Box per ***vagrant ssh*** einwählen, dann in den entprechenden Order navigieren.
+	vagrant ssh
+
+Auf dem Ubuntu-System dann in den entprechenden Order navigieren.
 
     # OSX #
 	cd /var/www/photofancy-environment
@@ -66,7 +70,15 @@ Nach dem Starten der VM-Box per ***vagrant ssh*** einwählen, dann in den entpre
 
 	git clone --recursive https://github.com/digitalprint/photofancy-docker-boilerplate.git photofancy
 
-#####Anpassungen docker-compose.yml
+#####in den photofancy Ordner wechseln
+
+	cd photofancy
+
+#####docker-compose.yml erstellen
+
+	cp docker-compose.development.yml docker-compose.yml
+
+###Anpassungen docker-compose.yml
 Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Je nach System den entsprechenden Ordner verknüpfen. Als Docker-Storage Name verwenden wir ***pfshared***
 
 	Für OSX:
@@ -81,9 +93,12 @@ Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Je nach System 
         - /storage
         - C:/www/_nfs_:/pfshared (Benutzerdefinierten Pfad einsetzen)
 	
-Anschließend die Container bilden und hochfahren.
+###PHP Version im Dockerfile.development einstellen (PHP 5.6)
 
-    cd photofancy
+	FROM webdevops/php-apache-dev:ubuntu-15.10
+
+Anschließend die Container hochfahren.
+
 	docker-compose up -d
 	
 Wenn man an der Konfiguration etwas ändert, reicht es in den meisten Fällen, die Container neu zu starten.
@@ -100,25 +115,22 @@ Zum Schluss die IP in der ***hosts*** Datei auf local.photofancy.de mappen.
 	192.168.56.2 local.photofancy.de
 	
 
-##PhotoFancy Projekt einbinden (BETA)
+##PhotoFancy Projekt Setup
 
-zum ersten Testen kann der komplette Inhalt des aktuellen ***PhotoFancy*** Projekts in den ***app*** Ordner kopiert werden (ohne den ***.git*** Ordner!).
-
-#####Anpassungen parameters.yml
-Der MySQL- Host und Port muss angepasst werden:
+###Anpassungen parameters.yml
+Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und dann den MySQL- Host und Port anpassen...
 
 	database_host: mysql
 	database_port: 3306
 
-Alle alten Verlinkungen auf den ***nfs*** Ordner müssen ersetzt werden:
+
+... sowie alle alten Verlinkungen auf den ***nfs*** Ordner ersetzen.
 
 	Alt: /var/www/_nfs_/
 	Neu: /pfshared/
 
-#####Datenbank füllen
-Die Datenbank muss erstmal mit einem alten Dump gefüllt werden, bevor man den Sync mit der Online-DB machen kann.
 
-#####Datenbank Verbindung per SSH (MySQL-Tool)
+###Datenbank Verbindung per SSH (MySQL-Tool)
 
 	MySQL-Host:	127.0.0.1
 	Benutzer:		root
@@ -131,6 +143,7 @@ Die Datenbank muss erstmal mit einem alten Dump gefüllt werden, bevor man den S
 	SSH-Password:	**********
 	SSH-Port:		22
 
+
 ##Mit Docker-Container verbinden
 Um später die Befehle der ***php app/console*** auszuführen, muss man sich mit der Container-Instanz verbinden. Man landet direkt im Projektverzeichnis.
 
@@ -138,12 +151,29 @@ Um später die Befehle der ***php app/console*** auszuführen, muss man sich mit
 	
 Symlink auf den pfshared muss noch gesetzt werden.
 
-	cd web
-	ln -nfs /pfshared/ _filesystem
+	ln -nfs /pfshared/ web/_filesystem
 	
-	
-	
+PhotoFancy Setup via Composer
 
+	composer install
+
+Datenbank Create & Sync
+
+	# DB Erzeugen
+	php app/console doctrine:schema:create
+	
+	# Session Tabelle anlegen
+	php app/console doctrine:query:sql "CREATE TABLE sessions ( sess_id VARBINARY(128) NOT NULL PRIMARY KEY, sess_data BLOB NOT NULL, sess_time INTEGER UNSIGNED NOT NULL, sess_lifetime MEDIUMINT NOT NULL ) COLLATE utf8_bin, ENGINE = InnoDB;"
+	
+	# Lokale DB -> Online DB Sync
+	php app/console pf:database:sync
+	
+###Die Session Tabelle wird nicht automatisch über die Doctrine Entities angelegt. Folgende Tabelle in die DB einfügen:
+
+	CREATE TABLE sessions ( sess_id VARBINARY(128) NOT NULL PRIMARY KEY, sess_data BLOB NOT NULL, sess_time INTEGER UNSIGNED NOT NULL, sess_lifetime MEDIUMINT NOT NULL ) COLLATE utf8_bin, ENGINE = InnoDB;
+	
+<br>
+---
 
 ![PHP Docker Boilerplate](https://static.webdevops.io/php-docker-boilerplate.svg)
 
