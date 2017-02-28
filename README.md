@@ -119,7 +119,6 @@ Zum Schluss die IP in der ***hosts*** Datei auf photofancy mappen.
 
 ###PhotoFancy Projekt in den ***app*** Ordner klonen
     
-    # Dann den Inhalt des PhotoFancy Repositories in einen neuen app Ordner laden
     git clone https://github.com/digitalprint/photofancy2.git app
 
 ###Anpassungen parameters.yml
