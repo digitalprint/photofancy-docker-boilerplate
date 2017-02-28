@@ -174,6 +174,26 @@ Datenbank Create & Sync
 	php app/console pf:database:sync
 	
 	
+##OpenCV Bibliothek installieren
+
+    ...wir befinden uns immer noch im Docker App-Container
+    
+    cd /opt/docker/provision/photofancy_install
+    
+    git clone https://github.com/opencv/opencv.git
+    
+    cd opencv
+    mkdir release
+    cd release
+    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
+    
+    make (1-3 Kaffee-Längen)
+    sudo make install
+    
+Das ***photofancy_install*** Verzeichnis kann jetzt wieder gelöscht werden
+
+    rm -r /opt/docker/provision/photofancy_install
+    
 <br>
 ---
 

@@ -66,11 +66,22 @@ RUN apt-get install -y mysql-client unixodbc libpq5
 # Install Gmic
 RUN apt-get install -y gmic gimp-gmic
 
+# Install Potrace
+RUN apt-get install -y potrace 
+
 # Install SphinxSearch
 RUN apt-get install -y sphinxsearch
 
+# Install OpenCV
+RUN apt-get install -y build-essential
+RUN apt-get install -y cmake libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+RUN apt-get install -y python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+
 RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get clean -y
+
+# Remove photofancy_install Folder
+RUN mkdir -p /opt/docker/provision/photofancy_install
 
 # Configure volume/workdir
 RUN mkdir -p /app/
