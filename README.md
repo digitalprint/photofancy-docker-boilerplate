@@ -44,6 +44,10 @@ Das automatische Update der Parallels-Tools muss deaktiviert werden, da sonst di
 Die NFS Rechte müssen auch angepasst werden (Nur für OSX).
 
 	:nfs => { :mount_options => [ "dmode=777", "fmode=777" ] }
+    
+Unter OSX mit Parallels Provider müssen folgende Zeilen auskommentiert werden, da die Box nicht "headless" startet:
+
+    #v.customize ["set", :id, "--startup-view", "headless"]
 	
 ##Installation PHP Docker Boilerplate
 
