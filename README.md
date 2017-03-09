@@ -182,17 +182,18 @@ Datenbank Create & Sync
 
     ...wir befinden uns immer noch im Docker App-Container
     
-    cd /opt/docker/provision/photofancy_install
-    
-    git clone https://github.com/opencv/opencv.git
-    
-    cd opencv
-    mkdir release
-    cd release
-    cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local ..
-    
-    make (1-3 Kaffee-Längen)
+    cd /tmp
+    wget https://github.com/opencv/opencv/archive/3.2.0.zip
+    unzip 3.2.0.zip
+    rm 3.2.0.zip
+    mv opencv-3.2.0 OpenCV
+    cd OpenCV
+    mkdir build
+    cd build
+    cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON ..
+    make -j4
     sudo make install
+    sudo ldconfig
     
 Das ***photofancy_install*** Verzeichnis kann jetzt wieder gelöscht werden
 
