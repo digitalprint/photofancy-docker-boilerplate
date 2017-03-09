@@ -69,13 +69,9 @@ Per SSH in die Box einloggen
 
 	vagrant ssh
 
-Auf dem Ubuntu-System dann in den entprechenden Order navigieren.
+Auf dem Ubuntu-System dann in den Projekt-Order navigieren.
 
-    # OSX #
 	cd /var/www/photofancy-environment
-	
-	# Windows #
-	cd /vagrant
 
 
 ###Grundinstallation
