@@ -36,6 +36,11 @@ Die Port-Weiterleitungen auf Port 80 sollte angepasst werden (unter Windows wird
 		- { guest: 80, host: 80, hostIp: '192.168.56.2', protocol: 'tcp' }
 
 
+CPU und Speicher der Box zuweisen, Beispiel anhand eines Quadcore Prozessors und min. 8GB RAM
+
+    cpu: '2'
+    memory: '4096'
+
 ###Anpassungen im Vagrantfile
 Das automatische Update der Parallels-Tools muss deaktiviert werden, da sonst die Box nicht startet (Tools können nicht installiert werden) - auf **false** setzen
 
