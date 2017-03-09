@@ -29,9 +29,9 @@ Die SharedFolder müssen je nach Betriebssystem angepasst werden.
 	sharedFolder:
 		- { type: 'nfs', src: '~/Workspace/Webentwicklung', target: '/var/www' }
 
-	# Windows
+	# Windows (Source je nach User anpassen)
 	sharedFolder:
-		- { type: 'home' }
+		- { type: 'default', src: 'C:/Users/USERNAME/web', target: '/var/www'}
 
 Die Port-Weiterleitungen auf Port 80 sollte angepasst werden (unter Windows wird Standardmäßig Port 80 gesetzt, keine Weiterleitung nötig).
 
