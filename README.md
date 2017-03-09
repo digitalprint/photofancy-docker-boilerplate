@@ -87,19 +87,12 @@ Auf dem Ubuntu-System dann in den Projekt-Order navigieren.
 	cp docker-compose.development.yml docker-compose.yml
 	
 ###Anpassungen docker-compose.yml
-Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Je nach System den entsprechenden Ordner verknüpfen. Als Docker-Storage Name verwenden wir ***pfshared***
+Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Als Docker-Storage Name verwenden wir ***pfshared***
 
-	Für OSX:
-	
 	volumes:
 		- /storage
 		- /var/www/_nfs_:/pfshared
-		
-	Für Windows:
 
-    volumes:
-        - /storage
-        - C:/www/_nfs_:/pfshared (Benutzerdefinierten Pfad einsetzen)
 
 Anschließend die Container hochfahren.
 
