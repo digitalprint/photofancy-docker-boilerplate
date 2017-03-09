@@ -16,6 +16,9 @@ Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert
 	
 	# Wenn unter OSX der Parallels Provider benutzt wird, muss das Plugin installiert werden
 	vagrant plugin install vagrant-parallels
+	
+	# Wenn unter Windows die VMWare Workstation benutzt wird, muss das Plugin installiert werden
+	vagrant plugin install vagrant-vmware-workstation
 
 ##spezielle Anpassungen der VM
 
