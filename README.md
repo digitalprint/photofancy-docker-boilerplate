@@ -198,9 +198,9 @@ Datenbank Create & Sync
     sudo make install
     sudo ldconfig
     
-Das ***photofancy_install*** Verzeichnis kann jetzt wieder gelöscht werden
+Das ***OpenCV***-Installations-Verzeichnis kann jetzt wieder gelöscht werden
 
-    rm -r /opt/docker/provision/photofancy_install
+    rm -r /tmp/OpenCV
     
 <br>
 ---

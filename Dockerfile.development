@@ -91,9 +91,6 @@ RUN apt-get install -y unzip wget
 RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get clean -y
 
-# Remove photofancy_install Folder
-RUN mkdir -p /opt/docker/provision/photofancy_install
-
 # Configure volume/workdir
 RUN mkdir -p /app/
 WORKDIR /app/
