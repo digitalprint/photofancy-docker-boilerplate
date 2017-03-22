@@ -224,3 +224,6 @@ Falls man sich noch in der Vagrant Box befindet, diese mit ***exit*** verlassen,
     vagrant reload --provision
     
     
+## 3. In den Docker-App-Container springen
+ 
+    docker exec -t -i photofancy_app_1 /bin/bash
