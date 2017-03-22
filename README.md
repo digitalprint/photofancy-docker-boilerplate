@@ -1,6 +1,6 @@
-#Documentation Vagrant mit Docker
+# Documentation Vagrant mit Docker
 
-##Installation der Vagrant Box
+## Installation der Vagrant Box
 
 Die Grundinstallation der VM wird anhand der [Dokumentation](http://webdevops-documentation.readthedocs.io/projects/vagrant-docker-vm/en/ubuntu-16.04/content/gettingStarted/index.html#installation "Zur Dokumentation") von WebDevOps durchgeführt.
 
@@ -20,9 +20,9 @@ Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert
 	# Wenn unter Windows die VMWare Workstation benutzt wird, muss das Plugin installiert werden
 	vagrant plugin install vagrant-vmware-workstation
 
-##spezielle Anpassungen der VM
+## spezielle Anpassungen der VM
 
-###Anpassungen in der vm.yml
+### Anpassungen in der vm.yml
 Die SharedFolder müssen je nach Betriebssystem angepasst werden.
 
 	# OSX
@@ -44,7 +44,7 @@ CPU und Speicher der Box zuweisen, Beispiel anhand eines Quadcore Prozessors und
     cpu: '2'
     memory: '4096'
 
-###Anpassungen im Vagrantfile
+### Anpassungen im Vagrantfile
 Das automatische Update der Parallels-Tools muss deaktiviert werden, da sonst die Box nicht startet (Tools können nicht installiert werden) - auf **false** setzen
 
 	v.update_guest_tools = false
@@ -57,7 +57,7 @@ Unter OSX mit Parallels Provider müssen folgende Zeilen auskommentiert werden, 
 
     #v.customize ["set", :id, "--startup-view", "headless"]
 	
-##Installation PHP Docker Boilerplate
+## Installation PHP Docker Boilerplate
 
 Offizielle [PHP Docker Boilerplate Dokumentation](https://github.com/webdevops/php-docker-boilerplate "Zur offiziellen PHP Docker Boilerplate Dokumentation").
 
@@ -74,19 +74,19 @@ Auf dem Ubuntu-System dann in den Projekt-Order navigieren.
 	cd /var/www/photofancy-environment
 
 
-###Grundinstallation
+### Grundinstallation
 
 	git clone https://github.com/digitalprint/photofancy-docker-boilerplate.git photofancy
 
-#####in den photofancy Ordner wechseln
+##### in den photofancy Ordner wechseln
 
 	cd photofancy
 
-#####docker-compose.yml erstellen
+##### docker-compose.yml erstellen
 
 	cp docker-compose.development.yml docker-compose.yml
 	
-###Anpassungen docker-compose.yml
+### Anpassungen docker-compose.yml
 Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Als Docker-Storage Name verwenden wir ***pfshared***
 
 	volumes:
@@ -112,13 +112,13 @@ Zum Schluss die IP in der ***hosts*** Datei auf photofancy mappen.
 	192.168.56.2 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
 	
 
-##PhotoFancy Projekt Setup
+## PhotoFancy Projekt Setup
 
-###PhotoFancy Projekt in den ***app*** Ordner klonen
+### PhotoFancy Projekt in den ***app*** Ordner klonen
     
     git clone https://github.com/digitalprint/photofancy2.git app
 
-###Anpassungen parameters.yml
+### Anpassungen parameters.yml
 Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und dann den MySQL- Host und Port anpassen...
 
 	database_host: mysql
@@ -131,7 +131,7 @@ Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und 
 	Neu: /pfshared/
 
 
-###Datenbank Verbindung per SSH (MySQL-Tool)
+### Datenbank Verbindung per SSH (MySQL-Tool)
 
 	MySQL-Host:	127.0.0.1
 	Benutzer:		root
@@ -145,7 +145,7 @@ Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und 
 	SSH-Port:		22
 
 
-##Mit Docker-Container verbinden
+## Mit Docker-Container verbinden
 Um später die Befehle der ***php app/console*** auszuführen, muss man sich mit der Container-Instanz verbinden. Man landet direkt im Projektverzeichnis.
 
 	docker exec -t -i photofancy_app_1 /bin/bash
@@ -170,7 +170,7 @@ Datenbank Create & Sync
 	php app/console pf:database:sync
 	
 	
-##OpenCV Bibliothek installieren
+## OpenCV Bibliothek installieren
 
     ...wir befinden uns immer noch im Docker App-Container
     
