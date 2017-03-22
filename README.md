@@ -192,7 +192,7 @@ Das ***OpenCV***-Installations-Verzeichnis kann jetzt wieder gelöscht werden
     rm -r /tmp/OpenCV
     
 <br>
----
+
 
 ## 1. Starten der Vagrant Box und Docker-Container
 
