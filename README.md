@@ -196,21 +196,21 @@ Das ***OpenCV***-Installations-Verzeichnis kann jetzt wieder gelöscht werden
 
 ## 1. Starten der Vagrant Box und Docker-Container
 
-    ### 1. Vagrant starten ###
+    1. Vagrant starten
     cd pfad_zum_ordner_photofancy-environment
     vagrant up
     
-    ### 2. Docker-Container starten ###
+    2. Docker-Container starten
     cd /var/www/photofancy-environment/photofancy
     docker-compose up -d
     
     
 ## 2. Stoppen der Vagrant Box und Docker-Container
 
-    ### 1. Docker-Container stoppen (man muss sich in der Vagrant Box befinden) ###
+    1. Docker-Container stoppen (man muss sich in der Vagrant Box befinden)
     docker-composer stop
     
-    ### 2. Vagrant Box stoppen / neustarten ###
+    2. Vagrant Box stoppen / neustarten
 
 Falls man sich noch in der Vagrant Box befindet, diese mit ***exit*** verlassen, anschließend
 
