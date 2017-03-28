@@ -43,7 +43,7 @@
 #
 #++++++++++++++++++++++++++++++++++++++
 
-FROM webdevops/php-apache-dev:ubuntu-15.10
+FROM webdevops/php-apache-dev:ubuntu-15.04
 
 ENV PROVISION_CONTEXT "development"
 
@@ -53,40 +53,6 @@ COPY provision/       /opt/docker/provision/
 
 RUN /opt/docker/bin/provision run --tag bootstrap --role boilerplate-main --role boilerplate-main-development --role boilerplate-deployment \
     && /opt/docker/bin/bootstrap.sh
-
-# Install tools
-RUN add-apt-repository ppa:otto-kesselgulasch/gimp
-RUN apt-get update
-RUN apt-get install -y ruby-sass
-RUN apt-get install -y mc
-RUN apt-get install -y vim
-RUN apt-get install -y jhead
-RUN apt-get install -y mysql-client unixodbc libpq5
-
-# Install Gmic
-RUN apt-get install -y gmic gimp-gmic
-
-# Install Potrace
-RUN apt-get install -y potrace 
-
-# Install SphinxSearch
-RUN apt-get install -y sphinxsearch
-
-# Install OpenCV
-RUN apt-get -y update
-RUN apt-get -y upgrade
-RUN apt-get -y dist-upgrade
-RUN apt-get -y autoremove
-
-RUN apt-get install -y build-essential cmake
-RUN apt-get install -y qt5-default libvtk6-dev
-RUN apt-get install -y zlib1g-dev libjpeg-dev libwebp-dev libpng-dev libtiff5-dev libjasper-dev libopenexr-dev libgdal-dev
-RUN apt-get install -y libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev yasm libopencore-amrnb-dev libopencore-amrwb-dev libv4l-dev libxine2-dev
-RUN apt-get install -y libtbb-dev libeigen3-dev
-RUN apt-get install -y python-dev python-tk python-numpy python3-dev python3-tk python3-numpy
-RUN apt-get install -y ant default-jdk
-RUN apt-get install -y doxygen
-RUN apt-get install -y unzip wget
 
 RUN rm -rf /var/lib/apt/lists/*
 RUN apt-get clean -y
