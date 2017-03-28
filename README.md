@@ -170,26 +170,14 @@ Datenbank Create & Sync
 	php app/console pf:database:sync
 	
 	
-## OpenCV Bibliothek installieren
+## PhotoFancy Installer starten
 
-    ...wir befinden uns immer noch im Docker App-Container
+    Hier werden alle benötigten Tools wie Gmic, Potrace, OpenCV etc. installiert.
     
-    cd /tmp
-    wget https://github.com/opencv/opencv/archive/3.2.0.zip
-    unzip 3.2.0.zip
-    rm 3.2.0.zip
-    mv opencv-3.2.0 OpenCV
-    cd OpenCV
-    mkdir build
-    cd build
-    cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DFORCE_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON ..
-    make -j4
-    sudo make install
-    sudo ldconfig
+    ...wir befinden uns immer noch im Docker App-Container...
     
-Das ***OpenCV***-Installations-Verzeichnis kann jetzt wieder gelöscht werden
-
-    rm -r /tmp/OpenCV
+    cd /opt/docker/etc/installer
+    ./photofancy.sh
     
 <br>
 
