@@ -158,7 +158,7 @@ PhotoFancy Setup via Composer
 
 	composer install
 
-Datenbank Create & Sync
+### Datenbank Create & Sync
 
 	# DB Erzeugen
 	php app/console doctrine:schema:create
