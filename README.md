@@ -129,6 +129,10 @@ Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und 
 
 	Alt: /var/www/_nfs_/
 	Neu: /pfshared/
+	
+... und den Node Pfad auf /usr/bin setzen
+
+    node_module_path: /usr/bin
 
 
 ### Datenbank Verbindung per SSH (MySQL-Tool)
@@ -179,6 +183,11 @@ PhotoFancy Setup via Composer
     cd /opt/docker/etc/installer
     ./photofancy.sh
     
+    Anschließend muss für die Prod-Umgebung die Assets extrahiert werden.
+    
+    cd /app
+    php app/console cache:clear --env=prod
+    php app/console assetic:dump --env=prod
 <br>
 
 
@@ -215,3 +224,4 @@ Falls man sich noch in der Vagrant Box befindet, diese mit ***exit*** verlassen,
 ## 3. In den Docker-App-Container springen
  
     docker exec -t -i photofancy_app_1 /bin/bash
+    

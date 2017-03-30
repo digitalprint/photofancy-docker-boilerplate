@@ -60,18 +60,6 @@ sudo apt-get install -y potrace
 log "Install sphinxsearch"
 sudo apt-get install -y sphinxsearch
 
-log "Install node"
-sudo apt-get remove -y nodejs
-sudo apt-get remove -y npm
-sudo curl -sL https://deb.nodesource.com/setup | sudo bash -
-sudo apt-get install -y nodejs
-
-log "Install uglifyJS"
-sudo npm install uglify-js -g
-
-log "Install uglifyCSS"
-sudo npm install uglifycss -g
-
 log "Install OpenCV 3.2.0 dependencies"
 
 sudo apt-get install -y libopencv-dev
@@ -116,6 +104,18 @@ sudo ldconfig
 
 cd /tmp
 sudo rm -r ${FOLDER_NAME}
+
+log "Install node"
+sudo apt-get remove -y nodejs
+sudo apt-get remove -y npm
+sudo curl -sL https://deb.nodesource.com/setup | sudo bash -
+sudo apt-get install -y nodejs
+
+log "Install uglifyJS"
+sudo npm install -g uglify-js
+
+log "Install uglifyCSS"
+sudo npm install -g uglifycss
 
 log "PhotoFancy Tools installed successfully!"
 
