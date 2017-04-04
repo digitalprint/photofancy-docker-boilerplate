@@ -117,6 +117,10 @@ sudo npm install -g uglify-js
 log "Install uglifyCSS"
 sudo npm install -g uglifycss
 
+log "Install Timeserver"
+sudo apt-get install -y ntpdate
+sudo ntpdate -s time.nist.gov
+
 log "PhotoFancy Tools installed successfully!"
 
 endtime=$(date "$dateformat")
