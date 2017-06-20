@@ -197,12 +197,12 @@ Falls man sich noch in der Vagrant Box befindet, diese mit ***exit*** verlassen,
 ### Datenbank Verbindung per SSH (MySQL-Tool)
 
 	MySQL-Host:     127.0.0.1
-	Benutzer:		root
-	Password:		**********
-	Datenbank:	    photofancy
-	Port:			13306
+	Benutzer:       root
+	Password:       **********
+	Datenbank:      photofancy
+	Port:           13306
 	
-	SSH-Host:		192.168.56.2
-	SSH-Benutzer:	vagrant
-	SSH-Password:	**********
-	SSH-Port:		22
+	SSH-Host:       192.168.56.2
+	SSH-Benutzer:   vagrant
+	SSH-Password:   **********
+	SSH-Port:       22
