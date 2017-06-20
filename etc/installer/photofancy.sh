@@ -77,7 +77,7 @@ apt-get install -y doxygen
 log "Grab OpenCV 3.2.0"
  
 FOLDER_NAME="opencv"
-EFFECTS_FOLDER="/var/www/photofancy-environment/photofancy/app/web/_filesystem/photofancy/repo/private/effects/current"
+EFFECTS_FOLDER="/app/web/_filesystem/photofancy/repo/private/effects/current"
 
 cd /tmp
 mkdir ${FOLDER_NAME}
