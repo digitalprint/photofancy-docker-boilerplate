@@ -31,7 +31,7 @@ Die SharedFolder müssen je nach Betriebssystem angepasst werden.
 
 	# Windows (Source je nach User anpassen)
 	sharedFolder:
-		- { type: 'default', src: 'C:/Users/USERNAME/web', target: '/var/www'}
+		- { type: 'default', src: 'C:/www', target: '/var/www'}
 
 Die Port-Weiterleitungen auf Port 80 sollte angepasst werden (unter Windows wird Standardmäßig Port 80 gesetzt, keine Weiterleitung nötig).
 
@@ -61,19 +61,6 @@ Unter OSX mit Parallels Provider müssen folgende Zeilen auskommentiert werden, 
 
 Offizielle [PHP Docker Boilerplate Dokumentation](https://github.com/webdevops/php-docker-boilerplate "Zur offiziellen PHP Docker Boilerplate Dokumentation").
 
-Vagrant Box starten
-
-	vagrant up
-	
-Per SSH in die Box einloggen
-
-	vagrant ssh
-
-Auf dem Ubuntu-System dann in den Projekt-Order navigieren.
-
-	cd /var/www/photofancy-environment
-
-
 ### Grundinstallation
 
 	git clone https://github.com/digitalprint/photofancy-docker-boilerplate.git photofancy
@@ -85,31 +72,6 @@ Auf dem Ubuntu-System dann in den Projekt-Order navigieren.
 ##### docker-compose.yml erstellen
 
 	cp docker-compose.development.yml docker-compose.yml
-	
-### Anpassungen docker-compose.yml
-Der ***nfs*** Ordner muss mit in den Storage eingebunden werden. Als Docker-Storage Name verwenden wir ***pfshared***
-
-	volumes:
-		- /storage
-		- /var/www/_nfs_:/pfshared
-
-
-Anschließend die Container hochfahren.
-
-	docker-compose up -d
-	
-Wenn man an der Konfiguration etwas ändert, reicht es in den meisten Fällen, die Container neu zu starten.
-
-	docker-compose stop
-	docker-compose up -d
-	
-... ansonsten alten Container entfernen und neu bilden (Beispiel MySQL)
-
-	docker-compose rm mysql
-	
-Zum Schluss die IP in der ***hosts*** Datei auf photofancy mappen.
-
-	192.168.56.2 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
 	
 
 ## PhotoFancy Projekt Setup
@@ -128,39 +90,33 @@ Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und 
 ... sowie alle alten Verlinkungen auf den ***nfs*** Ordner ersetzen.
 
 	Alt: /var/www/_nfs_/
-	Neu: /pfshared/
+	Neu: _filesystem/
 	
 ... und den Node Pfad auf /usr/bin setzen
 
     node_module_path: /usr/bin
 
+## Vagrant starten und einloggen
 
-### Datenbank Verbindung per SSH (MySQL-Tool)
+    vagrant up
+    
+Wenn die Vagrant Box gestartet ist, loggen wir uns per SSH ein
 
-	MySQL-Host:	127.0.0.1
-	Benutzer:		root
-	Password:		**********
-	Datenbank:	photofancy
-	Port:			13306
-	
-	SSH-Host:		192.168.56.2
-	SSH-Benutzer:	vagrant
-	SSH-Password:	**********
-	SSH-Port:		22
+    vagrant ssh
+    
+und wechseln anschließend in das PhotoFancy Projekt
 
+    cd /var/www/photofancy-environment/photofancy
 
 ## Mit Docker-Container verbinden
 Um später die Befehle der ***php app/console*** auszuführen, muss man sich mit der Container-Instanz verbinden. Man landet direkt im Projektverzeichnis.
 
 	docker exec -t -i photofancy_app_1 /bin/bash
 	
-Symlink auf den pfshared muss noch gesetzt werden.
-
-	ln -nfs /pfshared/ web/_filesystem
-	
 PhotoFancy Setup via Composer
 
-	composer install
+	php -dmemory_limit=-1 /usr/local/bin/composer install -o --prefer-dist
+
 
 ### Datenbank Create & Sync
 
@@ -188,10 +144,15 @@ PhotoFancy Setup via Composer
     cd /app
     php app/console cache:clear --env=prod
     php app/console assetic:dump --env=prod
-<br>
 
 
-## 1. Starten der Vagrant Box und Docker-Container
+## PhotoFancy Effektmanager Projekt Setup
+
+    
+
+## Starten und Stoppen von Vagrant und Docker
+
+### 1. Starten der Vagrant Box und Docker-Container
 
     1. Vagrant starten
     cd pfad_zum_ordner_photofancy-environment
@@ -202,7 +163,7 @@ PhotoFancy Setup via Composer
     docker-compose up -d
     
     
-## 2. Stoppen der Vagrant Box und Docker-Container
+### 2. Stoppen der Vagrant Box und Docker-Container
 
     1. Docker-Container stoppen (man muss sich in der Vagrant Box befinden)
     docker-composer stop
@@ -221,7 +182,7 @@ Falls man sich noch in der Vagrant Box befindet, diese mit ***exit*** verlassen,
     vagrant reload --provision
     
     
-## 3. In den Docker-App-Container springen
+### 3. In den Docker-App-Container springen
  
     docker exec -t -i photofancy_app_1 /bin/bash
     
