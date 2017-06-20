@@ -143,6 +143,12 @@ Man landet direkt im Projektverzeichnis.
 	
 ## PhotoFancy Installer starten
 
+### ACHTUNG: es gibt derzeit noch einen Fehler in der **photofancy.sh**. Nach einem Clone von Github werden die Line-Endings verändert. So lässt sich das Script nicht ausführen.
+### Dafür gibt es einen kleinen Hotfix: 
+
+Öffne die Datei **photofancy.sh** aus dem Ordner **photofancy-environment/photofancy/etc/installer/photofancy.sh** auf deiner Festplatte in **PHPStorm**.
+Anschließend einmal die Line-Endings auf **Unix/OSX (\n)** stellen. Dann noch irgendwo ein Leerzeichen einfügen, so dass das Dokument geändert wird. Nun noch speichern. Weiter gehts!
+
     Hier werden alle benötigten Tools wie Gmic, Potrace, OpenCV etc. installiert.
     
     ...wir befinden uns immer noch im Docker App-Container...
