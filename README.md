@@ -108,8 +108,14 @@ und wechseln anschließend in das PhotoFancy Projekt
 
     cd /var/www/photofancy-environment/photofancy
 
-## Mit Docker-Container verbinden
-Um später die Befehle der ***php app/console*** auszuführen, muss man sich mit der Container-Instanz verbinden. Man landet direkt im Projektverzeichnis.
+## Docker-Container hochfahren und verbinden
+
+Als erstes werden die Docker-Container gestartet.
+
+    docker-compose up -d
+
+Um später die Befehle der ***php app/console*** auszuführen, muss man sich mit der App-Container-Instanz verbinden. 
+Man landet direkt im Projektverzeichnis.
 
 	docker exec -t -i photofancy_app_1 /bin/bash
 	
