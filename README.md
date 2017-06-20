@@ -107,6 +107,11 @@ Wenn die Vagrant Box gestartet ist, loggen wir uns per SSH ein
 und wechseln anschließend in das PhotoFancy Projekt
 
     cd /var/www/photofancy-environment/photofancy
+	
+PhotoFancy Setup via Composer
+
+	php -dmemory_limit=-1 /usr/local/bin/composer install -o --prefer-dist
+
 
 ## Docker-Container hochfahren und verbinden
 
@@ -119,10 +124,6 @@ Man landet direkt im Projektverzeichnis.
 
 	docker exec -t -i photofancy_app_1 /bin/bash
 	
-PhotoFancy Setup via Composer
-
-	php -dmemory_limit=-1 /usr/local/bin/composer install -o --prefer-dist
-
 
 ### Datenbank Create & Sync
 
