@@ -166,14 +166,13 @@ Anschließend einmal die Line-Endings auf **Unix/OSX (\n)** stellen. Dann noch i
 
 	192.168.56.2 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
 
-
-## Glückwunsch - PhotoFancy ist jetzt unter local.photofancy.de/app_dev.php als Entwicklungsumgebung erreichbar! 
-
-## OPTIONAL: PhotoFancy Effektmanager Projekt Setup
+## PhotoFancy Effektmanager Projekt Setup
+Als letztes muss noch das Effektmanager Repository geklont werden.
 
     cd /app
     git clone https://github.com/digitalprint/photofancy-effectmanager.git web/_filesystem/photofancy/repo/private/effects/current
     
+## Glückwunsch - PhotoFancy ist jetzt unter local.photofancy.de/app_dev.php als Entwicklungsumgebung erreichbar! 
 
 ## Starten und Stoppen von Vagrant und Docker
 
