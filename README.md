@@ -168,7 +168,7 @@ Anschließend einmal die Line-Endings auf **Unix/OSX (\n)** stellen. Dann noch i
 	192.168.56.2 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
 
 
-## PhotoFancy Effektmanager Projekt Setup
+## OPTIONAL: PhotoFancy Effektmanager Projekt Setup
 
     cd /app
     git clone https://github.com/digitalprint/photofancy-effectmanager.git web/_filesystem/photofancy/repo/private/effects/current
