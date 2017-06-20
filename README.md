@@ -112,6 +112,10 @@ PhotoFancy Setup via Composer
 
 	php -dmemory_limit=-1 /usr/local/bin/composer install -o --prefer-dist
 
+Anschließend wechseln wir wieder zurück in den PhotoFancy Projekt Ordner 
+
+    cd /var/www/photofancy-environment/photofancy
+
 
 ## Docker-Container hochfahren und verbinden
 
