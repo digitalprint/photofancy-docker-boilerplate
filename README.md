@@ -156,17 +156,18 @@ Anschließend einmal die Line-Endings auf **Unix/OSX (\n)** stellen. Dann noch i
     cd /opt/docker/etc/installer
     ./photofancy.sh
     
-    Anschließend muss für die Prod-Umgebung die Assets extrahiert werden.
+    Anschließend müssen noch die Assets für das dev-Environment installiert werden.
     
     cd /app
-    php app/console cache:clear --env=prod
-    php app/console assetic:dump --env=prod
+    php app/console assets:install web --symlink
 
 
 ## Vagrant IP in der ***hosts*** Datei auf photofancy mappen.
 
 	192.168.56.2 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
 
+
+## Glückwunsch - PhotoFancy ist jetzt unter local.photofancy.de/app_dev.php als Entwicklungsumgebung erreichbar! 
 
 ## OPTIONAL: PhotoFancy Effektmanager Projekt Setup
 
