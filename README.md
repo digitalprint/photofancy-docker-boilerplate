@@ -106,7 +106,7 @@ Wenn die Vagrant Box gestartet ist, loggen wir uns per SSH ein
     
 und wechseln anschließend in das PhotoFancy Projekt
 
-    cd /var/www/photofancy-environment/photofancy
+    cd /var/www/photofancy-environment/photofancy/app
 	
 PhotoFancy Setup via Composer
 
