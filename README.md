@@ -87,10 +87,17 @@ Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und 
 	database_port: 3306
 
 
-... sowie alle alten Verlinkungen auf den ***nfs*** Ordner ersetzen.
+... sowie alle Ordnerpfade anpassen.
 
-	Alt: /var/www/_nfs_/
-	Neu: _filesystem/
+	shared_dir_web: _filesystem
+    shared_dir_resources: _filesystem/resources
+    shared_dir_pfresources: _filesystem/resources
+    shared_dir_cache: _filesystem/photofancy/cache
+    shared_dir_orders: _filesystem/photofancy/output
+    shared_dir_effect_repository: _filesystem/photofancy/repo/private/effects/current
+    shared_dir_effect_src: _filesystem/photofancy/repo/private/effects/current/provider/pf/filter/src
+    shared_dir_uploads: _filesystem/uploads
+    shared_dir_assets: _filesystem/assets
 	
 ... und den Node Pfad auf /usr/bin setzen
 
