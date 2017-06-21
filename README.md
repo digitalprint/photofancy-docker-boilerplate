@@ -189,7 +189,10 @@ Als letztes muss noch das Effektmanager Repository geklont werden.
     cd pfad_zum_ordner_photofancy-environment
     vagrant up
     
-    2. Docker-Container starten
+    2. In die Vagrant Box per SSH einwählen
+    vagrant ssh
+    
+    3. Docker-Container starten
     cd /var/www/photofancy-environment/photofancy
     docker-compose up -d
     
