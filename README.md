@@ -7,6 +7,10 @@ Die Grundinstallation der VM wird anhand der [Dokumentation](http://webdevops-do
 Diese Anleitung bezieht sich auf das Projekt "***PhotoFancy***".
 Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert.
 
+
+> :information_source: Die CPU Virtualisierungstechnologie nicht vergeßen zu aktivieren.
+
+
 	git clone --recursive --config core.autocrlf=false https://github.com/webdevops/vagrant-development.git photofancy-environment
 	
 	cd photofancy-environment
@@ -23,6 +27,12 @@ Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert
 ## spezielle Anpassungen der VM
 
 ### Anpassungen in der vm.yml
+
+CPU und Speicher der Box zuweisen, Beispiel anhand eines Quadcore Prozessors und min. 8GB RAM
+
+    cpu: '2'
+    memory: '6144' // composer braucht > 4096 Arbeitsspeicher
+
 Die SharedFolder müssen je nach Betriebssystem angepasst werden.
 
 	# OSX
@@ -37,12 +47,10 @@ Die Port-Weiterleitungen auf Port 80 sollte angepasst werden (unter Windows wird
 
 	portForwarding:
 		- { guest: 80, host: 80, hostIp: '192.168.56.2', protocol: 'tcp' }
+    
+Um den "Authentication failure" Warning zu vermeiden
 
-
-CPU und Speicher der Box zuweisen, Beispiel anhand eines Quadcore Prozessors und min. 8GB RAM
-
-    cpu: '2'
-    memory: '4096'
+	useSshPasswordAuth: true
 
 ### Anpassungen im Vagrantfile
 Das automatische Update der Parallels-Tools muss deaktiviert werden, da sonst die Box nicht startet (Tools können nicht installiert werden) - auf **false** setzen
@@ -61,8 +69,24 @@ Unter OSX mit Parallels Provider müssen folgende Zeilen auskommentiert werden, 
 
 Offizielle [PHP Docker Boilerplate Dokumentation](https://github.com/webdevops/php-docker-boilerplate "Zur offiziellen PHP Docker Boilerplate Dokumentation").
 
-### Grundinstallation
 
+Vagrant Box starten
+
+    vagrant up
+    
+Per SSH in die Box einloggen
+
+    vagrant ssh
+    username/password: vagrant
+
+Auf dem Ubuntu-System dann in den Projekt-Order navigieren.
+
+    cd /var/www/photofancy-environment
+
+### Grundinstallation
+	
+:information_source: GitHub Benutzername/Kennwort erforderlich
+	
 	git clone https://github.com/digitalprint/photofancy-docker-boilerplate.git photofancy
 
 ##### in den photofancy Ordner wechseln
@@ -73,6 +97,22 @@ Offizielle [PHP Docker Boilerplate Dokumentation](https://github.com/webdevops/p
 
 	cp docker-compose.development.yml docker-compose.yml
 	
+Anschließend die Container hochfahren.
+
+	docker-compose up -d
+	
+Wenn man an der Konfiguration etwas ändert, reicht es in den meisten Fällen, die Container neu zu starten.
+
+	docker-compose stop
+	docker-compose up -d
+	
+... ansonsten alten Container entfernen und neu bilden (Beispiel MySQL)
+
+	docker-compose rm mysql
+	
+Zum Schluss die IP in der ***hosts*** Datei *(in deine Host-Maschine)* auf photofancy mappen.
+
+    192.168.56.2 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
 
 ## PhotoFancy Projekt Setup
 
@@ -102,19 +142,16 @@ Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und 
 ... und den Node Pfad auf /usr/bin setzen
 
     node_module_path: /usr/bin
-
-## Vagrant starten und einloggen
-
-    vagrant up
-    
-Wenn die Vagrant Box gestartet ist, loggen wir uns per SSH ein
-
-    vagrant ssh
     
 und wechseln anschließend in das PhotoFancy Projekt
 
     cd /var/www/photofancy-environment/photofancy/app
-	
+    
+## Mit Docker-Container verbinden
+Um später die Befehle der ***php app/console*** auszuführen, muss man sich mit der Container-Instanz verbinden. Man landet direkt im Projektverzeichnis.
+
+	docker exec -t -i photofancy_app_1 /bin/bash
+		
 PhotoFancy Setup via Composer
 
 	php -dmemory_limit=-1 /usr/local/bin/composer install -o --prefer-dist
@@ -123,24 +160,7 @@ Anschließend wechseln wir wieder zurück in den PhotoFancy Projekt Ordner
 
     cd /var/www/photofancy-environment/photofancy
 
-
-## Docker-Container hochfahren und verbinden
-
-#### ACHTUNG: es gibt derzeit noch einen Fehler in der **photofancy.sh**. Nach einem Clone von Github werden die Line-Endings verändert. So lässt sich das Script nicht ausführen.
-#### Dafür gibt es einen kleinen Hotfix: 
-
-Öffne die Datei **photofancy.sh** aus dem Ordner **photofancy-environment/photofancy/etc/installer/photofancy.sh** auf deiner Festplatte in **PHPStorm**.
-Anschließend einmal die Line-Endings auf **Unix/OSX (\n)** stellen. Dann noch irgendwo ein Leerzeichen einfügen, so dass das Dokument geändert wird. Nun noch speichern. Weiter gehts!
-
-Als erstes werden die Docker-Container gestartet.
-
-    docker-compose up -d
-
-Um später die Befehle der ***php app/console*** auszuführen, muss man sich mit der App-Container-Instanz verbinden. 
-Man landet direkt im Projektverzeichnis.
-
-	docker exec -t -i photofancy_app_1 /bin/bash
-	
+## Docker-Container hochfahren und verbinden	
 
 ### Datenbank Create & Sync
 
@@ -152,6 +172,14 @@ Man landet direkt im Projektverzeichnis.
 	
 	# Lokale DB -> Online DB Sync
 	php app/console pf:database:sync
+	
+## Benutzer anlegen: ##
+
+Admin-Benutzer für die lokale Testumgebung anlegen (Username=pfadmin, Passwort=pfadmin)
+
+	php app/console fos:user:create pfadmin admin@dev.photofancy.de pfadmin
+
+	php app/console fos:user:promote ppadmin ROLE_ADMIN
 	
 	
 ## PhotoFancy Installer starten
@@ -168,10 +196,6 @@ Man landet direkt im Projektverzeichnis.
     cd /app
     php app/console assets:install web --symlink
 
-
-## Vagrant IP in der ***hosts*** Datei auf photofancy mappen.
-
-	192.168.56.2 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
 
 ## PhotoFancy Effektmanager Projekt Setup
 Als letztes muss noch das Effektmanager Repository geklont werden.
@@ -195,6 +219,11 @@ Als letztes muss noch das Effektmanager Repository geklont werden.
     3. Docker-Container starten
     cd /var/www/photofancy-environment/photofancy
     docker-compose up -d
+    
+    4. Jetzt kannst du photofancy von dein Browser besuchen
+    http://local.photofancy.de:8000
+    oder
+    https://local.photofancy.de:8443
     
     
 ### 2. Stoppen der Vagrant Box und Docker-Container
