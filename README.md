@@ -10,21 +10,28 @@ Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert
 
 > :information_source: Die CPU Virtualisierungstechnologie nicht vergeßen zu aktivieren.
 
+```bash
+git clone --recursive --config core.autocrlf=false https://github.com/webdevops/vagrant-development.git photofancy-environment
+	
+cd photofancy-environment
+```
+	
+bindfs Plugin installieren
+```bash
+vagrant plugin install vagrant-bindfs
+```
+	
+Wenn unter OSX der Parallels Provider benutzt wird, muss das Plugin installiert werden
+```bash
+vagrant plugin install vagrant-parallels
+```
+	
+Wenn unter Windows die VMWare Workstation benutzt wird, muss das Plugin installiert werden
+```bash
+vagrant plugin install vagrant-vmware-workstation
+```
 
-	git clone --recursive --config core.autocrlf=false https://github.com/webdevops/vagrant-development.git photofancy-environment
-	
-	cd photofancy-environment
-	
-	# bindfs Plugin installieren
-	vagrant plugin install vagrant-bindfs
-	
-	# Wenn unter OSX der Parallels Provider benutzt wird, muss das Plugin installiert werden
-	vagrant plugin install vagrant-parallels
-	
-	# Wenn unter Windows die VMWare Workstation benutzt wird, muss das Plugin installiert werden
-	vagrant plugin install vagrant-vmware-workstation
-
-## spezielle Anpassungen der VM
+## Spezielle Anpassungen der VM
 
 ### Anpassungen in der vm.yml
 
@@ -71,44 +78,53 @@ Offizielle [PHP Docker Boilerplate Dokumentation](https://github.com/webdevops/p
 
 
 Vagrant Box starten
-
-    vagrant up
+```bash
+vagrant up
+```
     
 Per SSH in die Box einloggen
-
-    vagrant ssh
-    username/password: vagrant
+```bash
+vagrant ssh
+username/password: vagrant
+```
 
 Auf dem Ubuntu-System dann in den Projekt-Order navigieren.
-
-    cd /var/www/photofancy-environment
+```bash
+cd /var/www/photofancy-environment
+```
 
 ### Grundinstallation
 	
 :information_source: GitHub Benutzername/Kennwort erforderlich
-	
-	git clone https://github.com/digitalprint/photofancy-docker-boilerplate.git photofancy
+```bash
+git clone https://github.com/digitalprint/photofancy-docker-boilerplate.git photofancy
+```
 
 ##### in den photofancy Ordner wechseln
-
-	cd photofancy
+```bash
+cd photofancy
+```
 
 ##### docker-compose.yml erstellen
-
-	cp docker-compose.development.yml docker-compose.yml
+```bash
+cp docker-compose.development.yml docker-compose.yml
+```
 	
 Anschließend die Container hochfahren.
-
-	docker-compose up -d
+```bash
+docker-compose up -d
+```
 	
 Wenn man an der Konfiguration etwas ändert, reicht es in den meisten Fällen, die Container neu zu starten.
-
-	docker-compose stop
-	docker-compose up -d
+```bash
+docker-compose stop
+docker-compose up -d
+```
 	
 ... ansonsten alten Container entfernen und neu bilden (Beispiel MySQL)
-
-	docker-compose rm mysql
+```bash
+docker-compose rm mysql
+```
 	
 Zum Schluss die IP in der ***hosts*** Datei *(in deine Host-Maschine)* auf photofancy mappen.
 
@@ -117,8 +133,9 @@ Zum Schluss die IP in der ***hosts*** Datei *(in deine Host-Maschine)* auf photo
 ## PhotoFancy Projekt Setup
 
 ### PhotoFancy Projekt in den ***app*** Ordner klonen
-    
-    git clone https://github.com/digitalprint/photofancy2.git app
+```bash    
+git clone https://github.com/digitalprint/photofancy2.git app
+```
 
 ### Anpassungen parameters.yml
 Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und dann den MySQL- Host und Port anpassen...
@@ -144,64 +161,83 @@ Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und 
     node_module_path: /usr/bin
     
 und wechseln anschließend in das PhotoFancy Projekt
-
-    cd /var/www/photofancy-environment/photofancy/app
+```bash
+cd /var/www/photofancy-environment/photofancy/app
+```
     
 ## Mit Docker-Container verbinden
 Um später die Befehle der ***php app/console*** auszuführen, muss man sich mit der Container-Instanz verbinden. Man landet direkt im Projektverzeichnis.
 
-	docker exec -t -i photofancy_app_1 /bin/bash
+```bash
+docker exec -t -i photofancy_app_1 /bin/bash
+```
 		
 PhotoFancy Setup via Composer
-
-	php -dmemory_limit=-1 /usr/local/bin/composer install -o --prefer-dist
+```bash
+php -dmemory_limit=-1 /usr/local/bin/composer install -o --prefer-dist
+```
 
 Anschließend wechseln wir wieder zurück in den PhotoFancy Projekt Ordner 
-
-    cd /var/www/photofancy-environment/photofancy
+```bash
+cd /var/www/photofancy-environment/photofancy
+```
 
 ## Docker-Container hochfahren und verbinden	
 
 ### Datenbank Create & Sync
 
-	# DB Erzeugen
-	php app/console doctrine:schema:create
+DB Erzeugen
+```bash
+php app/console doctrine:schema:create
+```
 	
-	# Session Tabelle anlegen
-	php app/console doctrine:query:sql "CREATE TABLE sessions ( sess_id VARBINARY(128) NOT NULL PRIMARY KEY, sess_data BLOB NOT NULL, sess_time INTEGER UNSIGNED NOT NULL, sess_lifetime MEDIUMINT NOT NULL ) COLLATE utf8_bin, ENGINE = InnoDB;"
+Session Tabelle anlegen
+```bash
+php app/console doctrine:query:sql "CREATE TABLE sessions ( sess_id VARBINARY(128) NOT NULL PRIMARY KEY, sess_data BLOB NOT NULL, sess_time INTEGER UNSIGNED NOT NULL, sess_lifetime MEDIUMINT NOT NULL ) COLLATE utf8_bin, ENGINE = InnoDB;"
+```
 	
-	# Lokale DB -> Online DB Sync
-	php app/console pf:database:sync
+Lokale DB -> Online DB Sync
+```bash
+php app/console pf:database:sync
+```
 	
 ## Benutzer anlegen: ##
 
-Admin-Benutzer für die lokale Testumgebung anlegen (Username=pfadmin, Passwort=pfadmin)
+Admin-Benutzer für die lokale Dev-umgebung anlegen (Username=pfadmin, Passwort=pfadmin)
 
-	php app/console fos:user:create pfadmin admin@dev.photofancy.de pfadmin
+```bash
+php app/console fos:user:create pfadmin admin@dev.photofancy.de pfadmin
 
-	php app/console fos:user:promote ppadmin ROLE_ADMIN
+php app/console fos:user:promote ppadmin ROLE_ADMIN
+```
 	
 	
 ## PhotoFancy Installer starten
 
-    Hier werden alle benötigten Tools wie Gmic, Potrace, OpenCV etc. installiert.
-    
-    ...wir befinden uns immer noch im Docker App-Container...
-    
-    cd /opt/docker/etc/installer
-    ./photofancy.sh
-    
-    Anschließend müssen noch die Assets für das dev-Environment installiert werden.
-    
-    cd /app
-    php app/console assets:install web --symlink
+Hier werden alle benötigten Tools wie Gmic, Potrace, OpenCV etc. installiert.
+
+...wir befinden uns immer noch im Docker App-Container...
+
+```bash
+cd /opt/docker/etc/installer
+./photofancy.sh
+```
+
+Anschließend müssen noch die Assets für das dev-Environment installiert werden.
+
+```bash
+cd /app
+php app/console assets:install web --symlink
+```
 
 
 ## PhotoFancy Effektmanager Projekt Setup
 Als letztes muss noch das Effektmanager Repository geklont werden.
 
-    cd /app
-    git clone https://github.com/digitalprint/photofancy-effectmanager.git web/_filesystem/photofancy/repo/private/effects/current
+```bash
+cd /app
+git clone https://github.com/digitalprint/photofancy-effectmanager.git web/_filesystem/photofancy/repo/private/effects/current
+```
     
 ## Glückwunsch - PhotoFancy ist jetzt unter local.photofancy.de/app_dev.php als Entwicklungsumgebung erreichbar! 
 
@@ -209,46 +245,57 @@ Als letztes muss noch das Effektmanager Repository geklont werden.
 
 ### 1. Starten der Vagrant Box und Docker-Container
 
-    1. Vagrant starten
-    cd pfad_zum_ordner_photofancy-environment
-    vagrant up
-    
-    2. In die Vagrant Box per SSH einwählen
-    vagrant ssh
-    
-    3. Docker-Container starten
-    cd /var/www/photofancy-environment/photofancy
-    docker-compose up -d
-    
-    4. Jetzt kannst du photofancy von dein Browser besuchen
-    http://local.photofancy.de:8000
-    oder
-    https://local.photofancy.de:8443
+1. Vagrant starten
+```bash
+cd pfad_zum_ordner_photofancy-environment
+vagrant up
+```
+
+2. In die Vagrant Box per SSH einwählen
+```bash
+vagrant ssh
+```
+
+3. Docker-Container starten
+```bash
+cd /var/www/photofancy-environment/photofancy
+docker-compose up -d
+```
+
+4. Jetzt kannst du photofancy von dein Browser besuchen
+http://local.photofancy.de oder https://local.photofancy.de
     
     
 ### 2. Stoppen der Vagrant Box und Docker-Container
 
-    1. Docker-Container stoppen (man muss sich in der Vagrant Box befinden)
-    docker-composer stop
+1. Docker-Container stoppen (man muss sich in der Vagrant Box befinden)
+```bash
+docker-composer stop
+```
     
-    2. Vagrant Box stoppen / neustarten
+2. Vagrant Box stoppen / neustarten
 
 Falls man sich noch in der Vagrant Box befindet, diese mit ***exit*** verlassen, anschließend
 
-    1. Stoppen
-    vagrant halt
+1. Stoppen
+```bash
+vagrant halt
+```
+
+2. Neustarten
+```bash
+vagrant reload
+```
     
-    2. Neustarten
-    vagrant reload
-    
-    3. Neustarten und neu Provisionieren (nach Änderungen in der config.yml)
-    vagrant reload --provision
-    
-    
-### 3. In den Docker-App-Container springen
+3. Neustarten und neu Provisionieren (nach Änderungen in der config.yml)
+```bash
+vagrant reload --provision
+```
  
-    docker exec -t -i photofancy_app_1 /bin/bash
-    
+### 3. In den Docker-App-Container springen
+```bash 
+docker exec -t -i photofancy_app_1 /bin/bash
+```
     
 ### Datenbank Verbindung per SSH (MySQL-Tool)
 
