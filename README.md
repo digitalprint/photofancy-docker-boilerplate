@@ -54,26 +54,6 @@ Die SharedFolder müssen je nach Betriebssystem angepasst werden.
         - { type: 'default', src: 'C:/www', target: '/var/www'}
 ```
 
-Die Port-Weiterleitungen anpassen.
-```yml
-    portForwarding:
-        - { guest: 8000, host: 80, hostIp: '127.0.0.1', protocol: 'tcp' }
-        - { guest: 8443, host: 443, hostIp: '127.0.0.1', protocol: 'tcp' }
-        - { guest: 13306, host: 3306, hostIp: '127.0.0.1', protocol: 'tcp' }
-```
-
-Die Port von VMware Workstation Server für Sharing wechseln.
-
-In den Einstellungen von VMware Workstation: _Edit > Preferences > Shared VMs_ 
-
-Zuerst auf _"Disable Sharing"_ drücken
-
-![Disable Sharing - VMware Preferences](http://image.ibb.co/fyZ4m5/vmware_preferences_sharing.png)
-
-und die Port wechseln und auf _"Enable Sharing"_ drücken.
-
-![Change Sharing Port - VMware Preferences](http://image.ibb.co/j6LoDk/vmware_preferences_sharing_2.png)
-
 Um den "Authentication failure" Warning zu vermeiden
 ```yml
     useSshPasswordAuth: true
@@ -148,7 +128,7 @@ docker-compose rm mysql
 
 Zum Schluss die IP in der ***hosts*** Datei *(in deine Host-Maschine)* auf photofancy mappen.
 
-    127.0.0.1 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
+    192.168.56.2 local.photofancy.de local.photofancy.ro local.photofancy.pl local.photofancy.co.uk local.photofancy.es local.photofancy.fr local.photofancy.it local.photofancy.com
 
 ## PhotoFancy Projekt Setup
 
@@ -262,7 +242,7 @@ cd /app
 git clone https://github.com/digitalprint/photofancy-effectmanager.git web/_filesystem/photofancy/repo/private/effects/current
 ```
 
-## Glückwunsch - PhotoFancy ist jetzt unter local.photofancy.de/app_dev.php als Entwicklungsumgebung erreichbar! 
+## Glückwunsch - PhotoFancy ist jetzt unter local.photofancy.de:8000/app_dev.php als Entwicklungsumgebung erreichbar! 
 
 ## Starten und Stoppen von Vagrant und Docker
 
@@ -286,7 +266,7 @@ docker-compose up -d
 ```
 
 4. Jetzt kannst du photofancy von dein Browser besuchen
-http://local.photofancy.de oder https://local.photofancy.de
+http://local.photofancy.de:8000 oder https://local.photofancy.de:8443
 
 
 ### 2. Stoppen der Vagrant Box und Docker-Container
