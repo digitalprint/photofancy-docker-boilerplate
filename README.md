@@ -108,7 +108,7 @@ Die vorhandene ***parameters.yml*** in den ***app/config*** Ordner kopieren und 
 
     node_module_path: /usr/bin
 
-## Vagrant starten und einloggen
+## Vagrant starten und per SSH einloggen
 
     vagrant up
     
@@ -119,14 +119,6 @@ Wenn die Vagrant Box gestartet ist, loggen wir uns per SSH ein
 und wechseln anschließend in das PhotoFancy Projekt
 
     cd /var/www/photofancy-environment/photofancy/app
-	
-PhotoFancy Setup via Composer
-
-	php -dmemory_limit=-1 /usr/local/bin/composer install -o --prefer-dist
-
-Anschließend wechseln wir wieder zurück in den PhotoFancy Projekt Ordner 
-
-    cd /var/www/photofancy-environment/photofancy
 
 
 ## Docker-Container hochfahren und verbinden
@@ -146,6 +138,11 @@ Man landet direkt im Projektverzeichnis.
 
 	docker exec -t -i photofancy_app_1 /bin/bash
 	
+
+### PhotoFancy Setup via Composer
+
+	composer install
+
 
 ### Datenbank Create & Sync
 
