@@ -42,7 +42,7 @@ Die Port-Weiterleitungen auf Port 80 sollte angepasst werden (unter Windows wird
 CPU und Speicher der Box zuweisen, Beispiel anhand eines Quadcore Prozessors und min. 8GB RAM
 
     cpu: '2'
-    memory: '4096'
+    memory: '6144'
 
 ### Anpassungen im Vagrantfile
 Das automatische Update der Parallels-Tools muss deaktiviert werden, da sonst die Box nicht startet (Tools können nicht installiert werden) - auf **false** setzen
@@ -73,6 +73,11 @@ Offizielle [PHP Docker Boilerplate Dokumentation](https://github.com/webdevops/p
 
 	cp docker-compose.development.yml docker-compose.yml
 	
+##### memory_limit in der php.ini anpassen
+Dazu die Datei **etc/php/development.ini** öffnen und den Wert erhöhen
+
+    memory_limit = 6000M
+
 
 ## PhotoFancy Projekt Setup
 
