@@ -129,7 +129,7 @@ und wechseln anschließend in das PhotoFancy Projekt
 Öffne die Datei **photofancy.sh** aus dem Ordner **photofancy-environment/photofancy/etc/installer/photofancy.sh** auf deiner Festplatte in **PHPStorm**.
 Anschließend einmal die Line-Endings auf **Unix/OSX (\n)** stellen. Dann noch irgendwo ein Leerzeichen einfügen, so dass das Dokument geändert wird. Nun noch speichern. Weiter gehts!
 
-Als erstes werden die Docker-Container gestartet.
+Als erstes werden die Docker-Container gestartet. Beim ersten Start werden die Container erst gebildet.
 
     docker-compose up -d
 
