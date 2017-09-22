@@ -59,6 +59,13 @@ Um den "Authentication failure" Warning zu vermeiden
     useSshPasswordAuth: true
 ```
 
+Die Port-Weiterleitungen auf Port 80 sollte angepasst werden (unter Windows wird Standardmäßig Port 80 gesetzt, keine Weiterleitung nötig).
+
+```yml
+portForwarding:
+    { guest: 80, host: 80, hostIp: '192.168.56.2', protocol: 'tcp' }
+```
+
 ### Anpassungen im Vagrantfile
 Das automatische Update der Parallels-Tools muss deaktiviert werden, da sonst die Box nicht startet (Tools können nicht installiert werden) - auf **false** setzen
 ```ruby
