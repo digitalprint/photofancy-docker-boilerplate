@@ -46,7 +46,7 @@ Die SharedFolder müssen je nach Betriebssystem angepasst werden.
     # OSX
     sharedFolder:
         - { type: 'nfs', src: '~/Workspace/Webentwicklung', target: '/var/www' }
-```yml
+```
 
 ```yml
     # Windows (Source je nach User anpassen)
