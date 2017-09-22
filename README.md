@@ -11,7 +11,7 @@ Die Vagrant Box wird hier in den Ordner ***photofancy-environment*** installiert
 > :information_source: Die CPU Virtualisierungstechnologie nicht vergeßen zu aktivieren.
 
 ```bash
-git clone --recursive --config core.autocrlf=false https://github.com/webdevops/vagrant-development.git photofancy-environment
+git clone -b ubuntu-14.04 --recursive --config core.autocrlf=false https://github.com/webdevops/vagrant-development.git photofancy-environment
 
 cd photofancy-environment
 ```
@@ -110,7 +110,7 @@ cd photofancy
 cp docker-compose.development.yml docker-compose.yml
 ```
 
-Anschließend die Container hochfahren.
+Als erstes werden die Docker-Container gestartet. Beim ersten Start werden die Container erst gebildet.
 ```bash
 docker-compose up -d
 ```
@@ -177,7 +177,7 @@ docker exec -t -i photofancy_app_1 /bin/bash
 
 PhotoFancy Setup via Composer
 ```bash
-php -dmemory_limit=-1 /usr/local/bin/composer install -o --prefer-dist
+composer install
 ```
 
 Anschließend wechseln wir wieder zurück in den PhotoFancy Projekt Ordner 
@@ -216,6 +216,12 @@ php app/console fos:user:promote ppadmin ROLE_ADMIN
 
 
 ## PhotoFancy Installer starten
+
+#### ACHTUNG: es gibt derzeit noch einen Fehler in der **photofancy.sh**. Nach einem Clone von Github werden die Line-Endings verändert. So lässt sich das Script nicht ausführen.
+#### Dafür gibt es einen kleinen Hotfix: 
+
+Öffne die Datei **photofancy.sh** aus dem Ordner **photofancy-environment/photofancy/etc/installer/photofancy.sh** auf deiner Festplatte in **PHPStorm**.
+Anschließend einmal die Line-Endings auf **Unix/OSX (\n)** stellen. Dann noch irgendwo ein Leerzeichen einfügen, so dass das Dokument geändert wird. Nun noch speichern. Weiter gehts!
 
 Hier werden alle benötigten Tools wie Gmic, Potrace, OpenCV etc. installiert.
 
