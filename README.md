@@ -84,7 +84,7 @@ Unter OSX mit Parallels Provider müssen folgende Zeilen auskommentiert werden, 
 
 Weil ein Virtual Host durch Ansible auf Port 80 vorgegeben wird, die Weiterleitung innerhalb der VM von port 80 zu 8000 funktioniert nicht.
 
-Um das zu ändern, änderen wir die Port des Virtual Hosts auf z.B. 8050 in der Datei  `ppapi-environment/provision/ansible/roles/docker-proxy/files/sites-available`
+Um das zu ändern, änderen wir die Port des Virtual Hosts auf z.B. 8050 in der Datei  `photofancy-environment/provision/ansible/roles/docker-proxy/files/sites-available`
 
 ```
 <VirtualHost *:8050>
