@@ -79,6 +79,26 @@ Unter OSX mit Parallels Provider müssen folgende Zeilen auskommentiert werden, 
 ```ruby
     #v.customize ["set", :id, "--startup-view", "headless"]
 ```
+
+### Anpassungen des Docker-Proxy
+
+Weil ein Virtual Host durch Ansible auf Port 80 vorgegeben wird, die Weiterleitung innerhalb der VM von port 80 zu 8000 funktioniert nicht.
+
+Um das zu ändern, änderen wir die Port des Virtual Hosts auf z.B. 8050 in der Datei  `ppapi-environment/provision/ansible/roles/docker-proxy/files/sites-available`
+
+```
+<VirtualHost *:8050>
+        ServerName DEV-VM
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/empty
+
+...
+...
+...
+
+```
+
 ## Installation PHP Docker Boilerplate
 
 Offizielle [PHP Docker Boilerplate Dokumentation](https://github.com/webdevops/php-docker-boilerplate "Zur offiziellen PHP Docker Boilerplate Dokumentation").
