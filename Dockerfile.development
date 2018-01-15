@@ -51,6 +51,8 @@ ENV PROVISION_CONTEXT "development"
 COPY etc/             /opt/docker/etc/
 COPY provision/       /opt/docker/provision/
 
+RUN sed -i -e 's/archive.ubuntu.com\|security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+
 RUN /opt/docker/bin/provision run --tag bootstrap --role boilerplate-main --role boilerplate-main-development --role boilerplate-deployment \
     && /opt/docker/bin/bootstrap.sh
 
